@@ -9,32 +9,50 @@ namespace Terraphibian
     {
         [SerializeField] private float _attackDuration = 0.1f;
         [SerializeField] private float _attackRecovery = .25f;
+        [SerializeField] private float _attackSwitchDelay = 0.1f;
         [SerializeField] private AttackBoxController _attackBoxController;
         [SerializeField] public float _pushbackMultiplier = 1.5f;
+        [SerializeField] public float _meleeBufferTime = 0.15f;
 
         public bool IsMelee { get; private set; }
         private CollisionDataRetriever _collisionDataRetriever;
         private SpriteRenderer _spriteRenderer;
         private bool _desiredMelee;
         private float _attackRecoverCountdown = 0;
+        private float _attackSwitchCountdown = 0;
+        private float _meleeBufferCountdown;
         private Controller _controller;
-        public Sprite meleeSprite;
-        public Sprite idleSprite;
+        private Animator _animator;
+
+        private GameObject _attackBoxInstance;
 
         void Start()
         {
             _controller = GetComponent<Controller>();
             _collisionDataRetriever = GetComponent<CollisionDataRetriever>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            meleeSprite = Resources.Load<Sprite>("Graphics/Character_Sprites/Terraphibian_slash");
-            idleSprite = Resources.Load<Sprite>("Graphics/Character_Sprites/Terraphibian");
+            if (GetComponent<Animator>()) _animator = GetComponent<Animator>();
+
+            _attackBoxInstance = transform.Find("AttackBox").gameObject;
+            if (!_attackBoxInstance)
+            {
+                Debug.LogError("Attack box instance not found!");
+            }
         }
 
         void Update()
         {
             _desiredMelee = _controller.input.RetrieveMeleeInputDown(this.gameObject);
+            if (_desiredMelee)
+            {
+                _meleeBufferCountdown = _meleeBufferTime;
+            }
+            else if (_meleeBufferCountdown > 0)
+            {
+                _meleeBufferCountdown -= Time.deltaTime;
+            }
 
-            if (_desiredMelee && _attackRecoverCountdown <= 0)
+            if (_meleeBufferCountdown > 0 && _attackRecoverCountdown <= 0)
             {
                 StartCoroutine(MeleeAction());
                 _desiredMelee = false;
@@ -44,17 +62,26 @@ namespace Terraphibian
             {
                 _attackRecoverCountdown -= Time.deltaTime;
             }
+
+            if (_attackSwitchCountdown > 0)
+            {
+                _attackSwitchCountdown -= Time.deltaTime;
+            }
+            else if (_attackSwitchCountdown <= 0 && _animator)
+            {
+                _animator.SetBool("firstSwing", false);
+                _attackBoxInstance.GetComponent<Animator>().SetBool("firstSwing", false);
+            }
         }
 
         public IEnumerator MeleeAction()
         {
             IsMelee = true;
+            _meleeBufferCountdown = 0;
             _attackRecoverCountdown = _attackRecovery;
             float vertical = _controller.input.RetrieveUpDownInput(this.gameObject);
             if (Mathf.Abs(vertical) < 0.5)
             {
-                _spriteRenderer.sprite = meleeSprite;
-                _spriteRenderer.color = Color.red;
                 _attackBoxController.ApplyConfig(AttackDirection.Neutral);
             }
             else if (vertical > 0.5)
@@ -66,14 +93,28 @@ namespace Terraphibian
                 _attackBoxController.ApplyConfig(AttackDirection.Down);
             }
 
+            if (_animator) _animator.SetBool("isMelee", true);
+            if (!_animator.GetBool("firstSwing"))
+            {
+                _attackSwitchCountdown = _attackSwitchDelay;
+            }
+
+            _attackBoxInstance.GetComponent<Animator>().SetTrigger("melee1");
+            
+            _attackBoxInstance.GetComponent<PolygonCollider2D>().enabled = true;
+
             // wait for recover
             yield return new WaitForSeconds(_attackDuration);
-
+            if (_animator) 
+            {
+                _animator.SetBool("firstSwing", true);
+                _attackBoxInstance.GetComponent<Animator>().SetBool("firstSwing", true);
+            }
+            _attackBoxInstance.GetComponent<PolygonCollider2D>().enabled = false;
             _attackBoxController.ResetTransform();
             _attackBoxController._pushbackApplied = false;
-            _spriteRenderer.color = Color.white;
-            _spriteRenderer.sprite = idleSprite;
             IsMelee = false;
+            if (_animator) _animator.SetBool("isMelee", false);
         }
     }
 }

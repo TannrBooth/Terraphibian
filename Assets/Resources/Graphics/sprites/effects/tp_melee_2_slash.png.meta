@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 5b15bff2d4c4e4794bce070a22cd47c2
+guid: 03d0b4833bd82490385f79e241fd2a7e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2651957586409933091
-    second: IMG_2966_Original_0
+      213: 3703888329718890000
+    second: tp_melee_2_slash_0
+  - first:
+      213: -2751241168457032632
+    second: tp_melee_2_slash_1
+  - first:
+      213: 3816198992372512213
+    second: tp_melee_2_slash_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 600
+  spritePixelsToUnits: 310
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_2966_Original_0
+      name: tp_melee_2_slash_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 612
-        height: 612
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 145, y: 3, z: 130, w: 32}
+        y: 720
+        width: 720
+        height: 720
+      alignment: 9
+      pivot: {x: 0.25, y: 0.39}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 329cd59cf55adc420800000000000000
-      internalID: 2651957586409933091
+      spriteID: 01efb94dfcad66330800000000000000
+      internalID: 3703888329718890000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tp_melee_2_slash_1
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 720
+        width: 720
+        height: 720
+      alignment: 9
+      pivot: {x: 0.25, y: 0.39}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84c10b6ebb0a1d9d0800000000000000
+      internalID: -2751241168457032632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tp_melee_2_slash_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 720
+        height: 720
+      alignment: 9
+      pivot: {x: 0.25, y: 0.39}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d53194b3ccd5f430800000000000000
+      internalID: 3816198992372512213
       vertices: []
       indices: 
       edges: []
@@ -125,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5f217931c187f4fe79622de61e3b5966
+    spriteID: de4a7934e394c435f81e8792fd1e924c
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +183,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":720.0,"y":720.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      IMG_2966_Original_0: 2651957586409933091
+      tp_melee_2_slash_0: 3703888329718890000
+      tp_melee_2_slash_1: -2751241168457032632
+      tp_melee_2_slash_2: 3816198992372512213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

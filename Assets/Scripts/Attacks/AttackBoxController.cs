@@ -43,7 +43,7 @@ namespace Terraphibian
             {
                 transform.localPosition = data.localPosition;
                 transform.localScale = data.localScale;
-                transform.localRotation = Quaternion.Euler(0, 0, data.rotationZ);
+                transform.localRotation = Quaternion.Euler(1, 1, data.rotationZ);
             }
             else
             {

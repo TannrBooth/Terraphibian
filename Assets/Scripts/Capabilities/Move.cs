@@ -15,6 +15,7 @@ namespace Terraphibian
         public Vector2 _direction;
         private Rigidbody2D _body;
         private CollisionDataRetriever _collisionDataRetriever;
+        private Animator _animator;
         private Melee _melee;
 
         private float _maxSpeedChange, _acceleration;
@@ -27,6 +28,8 @@ namespace Terraphibian
             _collisionDataRetriever = GetComponent<CollisionDataRetriever>();
             _controller = GetComponent<Controller>();
             _melee = GetComponent<Melee>();
+
+            if (GetComponent<Animator>()) _animator = GetComponent<Animator>();
         }
 
         public void ApplyPushback(Vector2 dir, float force)
@@ -37,12 +40,44 @@ namespace Terraphibian
         // Update is called once per frame
         void Update()
         {
+            if (_animator) _animator.SetBool("isTurning", false);
             _direction.x = _controller.input.RetrieveMoveInput(this.gameObject);
             _desiredVelocity = new Vector2(_direction.x, 0f) * Mathf.Max(maxSpeed - _collisionDataRetriever.Friction, 0f);
             if (_desiredVelocity.x < -0.01 && !_collisionDataRetriever.OnWall && !_melee.IsMelee)
+            {
+                if (transform.localScale.x != -1) _animator.SetTrigger("turnTrigger");
                 transform.localScale = new Vector2(-1, 1);
+                if (!_animator) return;
+                if (_onGround) 
+                {
+                    _animator.SetBool("isWalking", true);
+                }
+                else 
+                {
+                    _animator.SetBool("isWalking", false);
+                }
+            }
+                
             else if (_desiredVelocity.x > 0.01 && !_collisionDataRetriever.OnWall && !_melee.IsMelee)
+            {
+                if (transform.localScale.x != 1) _animator.SetTrigger("turnTrigger");
                 transform.localScale = new Vector2(1, 1);
+                if (!_animator) return;
+                if (_onGround)
+                {
+                    _animator.SetBool("isWalking", true);
+                }
+                else 
+                {
+                    _animator.SetBool("isWalking", false);
+                }
+            }
+
+            else 
+            {
+                if (!_animator) return;
+                if (!_melee.IsMelee) _animator.SetBool("isWalking", false);
+            }
         }
 
         private void FixedUpdate()

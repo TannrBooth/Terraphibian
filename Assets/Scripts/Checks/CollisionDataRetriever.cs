@@ -47,7 +47,6 @@ namespace Terraphibian
                 // Wall contact check
                 if (Mathf.Abs(ContactNormal.x) >= 0.9f)
                 {
-                    Debug.Log(ContactNormal.x);
                     bool wallOnLeft = ContactNormal.x > 0.9f;
                     bool wallOnRight = ContactNormal.x < -0.9f;
 
