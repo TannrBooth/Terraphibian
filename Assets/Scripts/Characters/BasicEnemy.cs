@@ -18,7 +18,7 @@ public class BasicEnemy : Enemy
 
     void Start()
     {
-        _health = 10;
+        _health = 3;
     }
 
     void Update()

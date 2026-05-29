@@ -14704,10 +14704,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29a080c2b4c042ec9587cdde3e11f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
-  _health: 0
-  _speed: 0
-  _attackPower: 0
-  _weight: 0
+  _health: 1
+  _speed: 1
+  _attackPower: 1
+  _weight: 1
 --- !u!114 &588897273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15418,9 +15418,11 @@ GameObject:
   m_Component:
   - component: {fileID: 714383023}
   - component: {fileID: 714383024}
+  - component: {fileID: 714383025}
+  - component: {fileID: 714383026}
   m_Layer: 6
   m_Name: frog_statue
-  m_TagString: Untagged
+  m_TagString: BreakableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15499,6 +15501,56 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &714383025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714383022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff52466504f845aaac3cf94089588d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakableObject
+  _hitsToBreak: 1
+--- !u!70 &714383026
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714383022}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.8616667, y: 0.90833336}
+  m_Direction: 0
 --- !u!1 &769576222
 GameObject:
   m_ObjectHideFlags: 0
@@ -18003,7 +18055,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18199,8 +18251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973e240cd15f54bfea5089a7e5623e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Terraphibian.Melee
+  _attackDamage: 1
   _attackDuration: 0.08
-  _attackRecovery: 0.4
+  _attackRecovery: 0.45
   _attackSwitchDelay: 0.8
   _attackBoxController: {fileID: 1594139120}
   _pushbackMultiplier: 2
@@ -20662,10 +20715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29a080c2b4c042ec9587cdde3e11f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicEnemy
-  _health: 0
-  _speed: 0
-  _attackPower: 0
-  _weight: 0
+  _health: 1
+  _speed: 1
+  _attackPower: 1
+  _weight: 1
 --- !u!61 &1853412831
 BoxCollider2D:
   m_ObjectHideFlags: 0

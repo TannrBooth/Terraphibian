@@ -1,0 +1,46 @@
+using UnityEngine;
+
+public class BreakableObject : MonoBehaviour
+{
+    [SerializeField] protected int _hitsToBreak = 3;
+    [SerializeField] protected GameObject _collectablePrefab;
+    [SerializeField] protected int _collectableQuantity = 1;
+
+    private int _currentHits = 0;
+    private int dropQuantity;
+
+    public void Hit()
+    {
+        _currentHits++;
+        if (_currentHits >= _hitsToBreak)
+        {
+            Break();
+        }
+        else
+        {
+            // Shake object and drop a few collectables on hit
+            GetComponent<ShakeOnHit>().Shake();
+            dropQuantity = UnityEngine.Random.Range(1, 3);
+            DropCollectable(_collectablePrefab, dropQuantity);
+            _collectableQuantity -= dropQuantity;
+        }
+    }
+
+    public void DropCollectable(GameObject collectablePrefab, int quantity)
+    {
+        for (int i = 0; i < quantity; i++)
+        {
+            GameObject collectable = Instantiate(collectablePrefab, transform.position, Quaternion.identity);
+            Vector2 force = new Vector2(Random.Range(-4f, 4f),Random.Range(5f, 20f));
+
+            collectable.GetComponent<Collectable>().Launch(force);
+        }
+    }
+
+    protected virtual void Break()
+    {
+        DropCollectable(_collectablePrefab, _collectableQuantity);
+        Destroy(gameObject);
+        // Play break animation, spawn particles, etc.
+    }
+}

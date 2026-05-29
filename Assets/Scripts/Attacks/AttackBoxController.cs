@@ -63,7 +63,7 @@ namespace Terraphibian
             if (col.CompareTag("Wall") && !_pushbackApplied)
             {
                 if (_move != null)
-                    _move.ApplyPushback(-_move.transform.localScale.normalized, _melee._pushbackMultiplier);
+                    _move.ApplyPushback(-_move.transform.localScale.normalized, _melee._pushbackMultiplier/2);
             }
             if (col.CompareTag("Enemy"))
             {
@@ -78,8 +78,20 @@ namespace Terraphibian
                     enemyMove.ApplyPushback(_move.transform.localScale.normalized, 1/col.GetComponent<Move>()._pushbackWeight);
 
                 // TODO: Deal damage
-            }
+                if (col.TryGetComponent<Enemy>(out var enemy))
+                {
+                    enemy._health -= _melee._attackDamage;
+                    Debug.Log($"Dealt {_melee._attackDamage} damage to {col.gameObject.name}. Remaining health: {enemy._health}");
+                }
 
+            }
+            if (col.CompareTag("BreakableObject"))
+            {
+                if (col.TryGetComponent<BreakableObject>(out var breakable))
+                {
+                    breakable.Hit();
+                }
+            }
         }
     }
 }

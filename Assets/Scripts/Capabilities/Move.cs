@@ -46,6 +46,7 @@ namespace Terraphibian
             if (_desiredVelocity.x < -0.01 && !_collisionDataRetriever.OnWall && !_melee.IsMelee)
             {
                 if (transform.localScale.x != -1) _animator.SetTrigger("turnTrigger");
+
                 transform.localScale = new Vector2(-1, 1);
                 if (!_animator) return;
                 if (_onGround) 
@@ -56,6 +57,7 @@ namespace Terraphibian
                 {
                     _animator.SetBool("isWalking", false);
                 }
+                
             }
                 
             else if (_desiredVelocity.x > 0.01 && !_collisionDataRetriever.OnWall && !_melee.IsMelee)

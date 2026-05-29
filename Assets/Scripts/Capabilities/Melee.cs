@@ -7,6 +7,7 @@ namespace Terraphibian
     [RequireComponent(typeof(Controller), typeof(CollisionDataRetriever), typeof(Rigidbody2D))]
     public class Melee : MonoBehaviour
     {
+        [SerializeField] public float _attackDamage = 1f;
         [SerializeField] private float _attackDuration = 0.1f;
         [SerializeField] private float _attackRecovery = .25f;
         [SerializeField] private float _attackSwitchDelay = 0.1f;
@@ -93,13 +94,16 @@ namespace Terraphibian
                 _attackBoxController.ApplyConfig(AttackDirection.Down);
             }
 
-            if (_animator) _animator.SetBool("isMelee", true);
+            if (_animator) 
+            {
+                _animator.SetTrigger("meleeTrigger");
+                _attackBoxInstance.GetComponent<Animator>().SetTrigger("melee1");
+            }
             if (!_animator.GetBool("firstSwing"))
             {
                 _attackSwitchCountdown = _attackSwitchDelay;
             }
 
-            _attackBoxInstance.GetComponent<Animator>().SetTrigger("melee1");
             
             _attackBoxInstance.GetComponent<PolygonCollider2D>().enabled = true;
 
@@ -114,7 +118,6 @@ namespace Terraphibian
             _attackBoxController.ResetTransform();
             _attackBoxController._pushbackApplied = false;
             IsMelee = false;
-            if (_animator) _animator.SetBool("isMelee", false);
         }
     }
 }
