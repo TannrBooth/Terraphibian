@@ -1,27 +1,51 @@
 using UnityEngine;
-
-public class Collectable : MonoBehaviour
+namespace Terraphibian
 {
-    Rigidbody2D rb;
-   
-    void Awake()
+public class Collectable : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        Rigidbody2D rb;
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        private bool canBeCollected = true;
+        private float collectTimer = 0f;
+    
+        void Awake()
         {
-            // Here you can add logic to give the player the collectable item
-            Debug.Log("Collectable picked up!");
-            Destroy(gameObject); // Remove the collectable from the scene
+            rb = GetComponent<Rigidbody2D>();
         }
-    }
 
-    public void Launch(Vector2 force)
-    {
-        rb.AddForce(force, ForceMode2D.Impulse);
+        void Update()
+        {
+            if (!canBeCollected)
+            {
+                collectTimer -= Time.deltaTime;
+                if (collectTimer <= 0)                
+                {
+                    canBeCollected = true;
+                }
+            }
+        }
+
+        public void SetCollectDelay(float delay)
+        {
+            canBeCollected = false;
+            collectTimer = delay;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!canBeCollected) return;
+            if (collision.CompareTag("Player"))
+            {
+                // Here you can add logic to give the player the collectable item
+                collision.GetComponent<Inventory>()?.AddSeeds(1);
+                // Debug.Log("Collectable picked up!");
+                Destroy(gameObject); // Remove the collectable from the scene
+            }
+        }
+
+        public void Launch(Vector2 force)
+        {
+            rb.AddForce(force, ForceMode2D.Impulse);
+        }
     }
 }

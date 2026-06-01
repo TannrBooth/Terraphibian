@@ -9,6 +9,8 @@ namespace Terraphibian
         private bool _isJumping;
         private bool _isMelee;
         private bool _meleePressed; // pressed this frame
+        private bool _isSow;
+        private bool _sowPressed; // pressed this frame
 
         private void OnEnable()
         {
@@ -18,6 +20,8 @@ namespace Terraphibian
             _inputActions.Gameplay.Jump.canceled += JumpCanceled;
             _inputActions.Gameplay.Melee.started += MeleeStarted;
             _inputActions.Gameplay.Melee.canceled += MeleeCanceled;
+            _inputActions.Gameplay.Sow.started += SowStarted;
+            _inputActions.Gameplay.Sow.canceled += SowCanceled;
         }
 
         private void OnDisable()
@@ -25,6 +29,10 @@ namespace Terraphibian
             _inputActions.Gameplay.Disable();
             _inputActions.Gameplay.Jump.started -= JumpStarted;
             _inputActions.Gameplay.Jump.canceled -= JumpCanceled;
+            _inputActions.Gameplay.Melee.started -= MeleeStarted;
+            _inputActions.Gameplay.Melee.canceled -= MeleeCanceled;
+            _inputActions.Gameplay.Sow.started -= SowStarted;
+            _inputActions.Gameplay.Sow.canceled -= SowCanceled;
             _inputActions = null;
         }
 
@@ -78,6 +86,31 @@ namespace Terraphibian
             }
             return false;
         }
+
+        public void SowStarted(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            _isSow = true;
+            _sowPressed = true;
+        }
+        public void SowCanceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            _isSow = false;
+        }
+
+        public override bool RetrieveSowInput(GameObject gameObject)
+        {
+            return _isSow;
+        }
+
+        public override bool RetrieveSowInputDown(GameObject gameObject)
+         {
+            if (_sowPressed)
+            {
+                _sowPressed = false;
+                return true;
+            }
+            return false;
+         }
 
     }
 }

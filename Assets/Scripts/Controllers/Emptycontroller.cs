@@ -30,5 +30,15 @@ namespace Terraphibian
         {
             return false;
         }
+
+        public override bool RetrieveSowInput(GameObject gameObject)
+        {
+            return false;
+        }
+
+        public override bool RetrieveSowInputDown(GameObject gameObject)
+        {
+            return false;
+        }
     }
 }

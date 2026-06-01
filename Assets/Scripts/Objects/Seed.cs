@@ -1,6 +1,8 @@
 using UnityEngine;
-
-public class Seed : Collectable
+namespace Terraphibian
 {
+    public class Seed : Collectable
+    {
 
+    }
 }

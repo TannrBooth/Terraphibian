@@ -83,6 +83,7 @@ namespace Terraphibian
                     enemy._health -= _melee._attackDamage;
                     Debug.Log($"Dealt {_melee._attackDamage} damage to {col.gameObject.name}. Remaining health: {enemy._health}");
                 }
+                HitStop.Instance.Stop(0.02f);
 
             }
             if (col.CompareTag("BreakableObject"))

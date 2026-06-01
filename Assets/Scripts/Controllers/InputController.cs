@@ -13,5 +13,9 @@ namespace Terraphibian
         public abstract bool RetrieveMeleeInput(GameObject gameObject);
 
         public abstract bool RetrieveMeleeInputDown(GameObject gameObject);
+
+        public abstract bool RetrieveSowInput(GameObject gameObject);
+
+        public abstract bool RetrieveSowInputDown(GameObject gameObject);
     }
 }
