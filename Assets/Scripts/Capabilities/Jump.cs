@@ -26,12 +26,15 @@ namespace Terraphibian
 
         private bool _desiredJump, _onGround, _isWallJumping, _isJumpReset;
 
+        private Animator _animator;
+
         void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
             _ground = GetComponent<CollisionDataRetriever>();
             _controller = GetComponent<Controller>();
             _wallInteractor = GetComponent<WallInteractor>();
+            if (GetComponent<Animator>()) _animator = GetComponent<Animator>();
 
             _isJumpReset = true;
             _defaultGravityScale = 1f;
@@ -52,11 +55,12 @@ namespace Terraphibian
             {
                 _jumpPhase = 0;
             }
-            
+
             if (_onGround && _body.linearVelocityY <= 0.01f)
             {
                 _jumpPhase = 0;
                 _coyoteCounter = _coyoteTime;
+                if (_animator) _animator.SetBool("inAir", false);
                 IsJumping = false;
             }
             else
@@ -84,6 +88,7 @@ namespace Terraphibian
                 JumpAction();
             }
 
+
             if (_controller.input.RetrieveJumpInput(this.gameObject) && _body.linearVelocityY > 0)
             {
                 _body.gravityScale = _upwardMovementMultiplier;
@@ -103,6 +108,21 @@ namespace Terraphibian
 
             _body.linearVelocity = _velocity;
 
+            if (!_onGround)
+            {
+                if (_velocity.y < -0.05f)
+                {
+                    if (_animator) _animator.SetInteger("upOrDown", -1);
+                }
+                else if (_velocity.y > 0.01f)
+                {
+                    if (_animator) _animator.SetInteger("upOrDown", 1);
+                }
+            }
+            else
+            {
+                if (_animator) _animator.SetInteger("upOrDown", 0);
+            }
 
         }
 
@@ -115,6 +135,7 @@ namespace Terraphibian
                     _jumpPhase += 1;
                 }
 
+                if (_animator) _animator.SetBool("inAir", true);
                 _jumpBufferCounter = 0;
                 _coyoteCounter = 0;
                 _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _jumpHeight * _upwardMovementMultiplier);

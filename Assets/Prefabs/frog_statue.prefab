@@ -159,4 +159,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShakeOnHit
   duration: 0.15
-  magnitude: 0.08
+  magnitude: 0.04

@@ -118,12 +118,12 @@ TextureImporter:
       name: tp_melee_0
       rect:
         serializedVersion: 2
-        x: 270
-        y: 892
-        width: 215
-        height: 361
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 720
+        width: 720
+        height: 720
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: tp_melee_1
       rect:
         serializedVersion: 2
-        x: 852
-        y: 882
-        width: 512
-        height: 454
+        x: 720
+        y: 720
+        width: 720
+        height: 720
       alignment: 9
-      pivot: {x: 0.3, y: 0.32}
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: tp_melee_2
       rect:
         serializedVersion: 2
-        x: 1572
-        y: 882
-        width: 520
-        height: 335
+        x: 1440
+        y: 720
+        width: 720
+        height: 720
       alignment: 9
-      pivot: {x: 0.3, y: 0.43}
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: tp_melee_3
       rect:
         serializedVersion: 2
-        x: 181
-        y: 176
-        width: 238
-        height: 344
+        x: 0
+        y: 0
+        width: 720
+        height: 720
       alignment: 9
-      pivot: {x: 0.47, y: 0.5}
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: tp_melee_4
       rect:
         serializedVersion: 2
-        x: 934
-        y: 174
-        width: 231
-        height: 325
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 720
+        y: 0
+        width: 720
+        height: 720
+      alignment: 9
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: tp_melee_5
       rect:
         serializedVersion: 2
-        x: 1718
-        y: 157
-        width: 237
-        height: 361
+        x: 1440
+        y: 0
+        width: 720
+        height: 720
       alignment: 9
-      pivot: {x: 0.38, y: 0.58}
+      pivot: {x: 0.5, y: 0.51}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -258,7 +258,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":720.0,"y":720.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5099999904632568},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       tp_melee_0: 4539682968518885760
       tp_melee_1: -5351404846069016137
