@@ -7,6 +7,7 @@ namespace Terraphibian
         [SerializeField] protected int _hitsToBreak = 3;
         [SerializeField] protected GameObject _collectablePrefab;
         [SerializeField] protected int _collectableQuantity = 1;
+        [SerializeField] private GameObject _hitEffectPrefab;
 
         private int _currentHits = 0;
         private int dropQuantity;
@@ -25,6 +26,18 @@ namespace Terraphibian
                 dropQuantity = UnityEngine.Random.Range(1, 3);
                 DropCollectable(_collectablePrefab, dropQuantity);
                 _collectableQuantity -= dropQuantity;
+            }
+            if (_hitEffectPrefab != null)
+            {
+                float randomZ = Random.Range(0f, 360f);
+
+                GameObject effect = Instantiate(
+                        _hitEffectPrefab,
+                        transform.position,
+                        Quaternion.Euler(0, 0, randomZ)
+                );
+                float randomScale = Random.Range(2.9f, 4.1f); // ±10%
+                effect.transform.localScale *= randomScale;
             }
         }
 

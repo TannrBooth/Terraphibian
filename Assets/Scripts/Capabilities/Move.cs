@@ -45,7 +45,7 @@ namespace Terraphibian
             _desiredVelocity = new Vector2(_direction.x, 0f) * Mathf.Max(maxSpeed - _collisionDataRetriever.Friction, 0f);
             if (_desiredVelocity.x < -0.01 && !_collisionDataRetriever.OnWall && !_melee.IsMelee)
             {
-                if (transform.localScale.x != -1) _animator.SetTrigger("turnTrigger");
+                if (transform.localScale.x != -1 && _collisionDataRetriever.OnGround) _animator.SetTrigger("turnTrigger");
 
                 transform.localScale = new Vector2(-1, 1);
                 if (!_animator) return;

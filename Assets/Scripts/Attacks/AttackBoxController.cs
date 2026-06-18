@@ -6,6 +6,8 @@ namespace Terraphibian
     public class AttackBoxController : MonoBehaviour
     {
         [SerializeField] private AttackBoxProfile _attackBoxProfile;
+        [SerializeField] private GameObject _hitEnemyEffectPrefab;
+        [SerializeField] private GameObject _impactSparkEffectPrefab;
 
         private Dictionary<AttackDirection, AttackBoxData> _configLookup;
         private Vector3 _defaultLocalPosition;
@@ -63,14 +65,24 @@ namespace Terraphibian
             if (col.CompareTag("Wall") && !_pushbackApplied)
             {
                 if (_move != null)
-                    _move.ApplyPushback(-_move.transform.localScale.normalized, _melee._pushbackMultiplier/2);
+                    _move.ApplyPushback(-_move.transform.localScale.normalized, _melee._pushbackMultiplier);
+                if (_impactSparkEffectPrefab != null)
+                {
+
+                    GameObject effect = Instantiate(
+                            _impactSparkEffectPrefab,
+                            transform.position,
+                            Quaternion.Euler(0, 0, 90f * Mathf.Sign(_move.transform.localScale.x))
+                    );
+                    float randomScale = Random.Range(2.9f, 4.1f); // ±10%
+                    effect.transform.localScale *= randomScale;
+                }    
             }
             if (col.CompareTag("Enemy"))
             {
                 if (_pushbackApplied) return; // Prevent multiple pushbacks per attack
                 // Player pushback
                 if (_move != null)
-                    
                     _move.ApplyPushback(-_move.transform.localScale.normalized,  _melee._pushbackMultiplier);
                     _pushbackApplied = true;
                 // Enemy pushback
@@ -83,7 +95,20 @@ namespace Terraphibian
                     enemy._health -= _melee._attackDamage;
                     Debug.Log($"Dealt {_melee._attackDamage} damage to {col.gameObject.name}. Remaining health: {enemy._health}");
                 }
-                HitStop.Instance.Stop(0.02f);
+                if (_hitEnemyEffectPrefab != null)
+                {
+                    float randomZ = Random.Range(0f, 360f);
+
+                    GameObject effect = Instantiate(
+                            _hitEnemyEffectPrefab,
+                            transform.position,
+                            Quaternion.Euler(0, 0, randomZ)
+                    );
+                    float randomScale = Random.Range(2.9f, 4.1f); // ±10%
+                    effect.transform.localScale *= randomScale;
+                }
+                    HitStop.Instance.Stop(0.02f);
+                
 
             }
             if (col.CompareTag("BreakableObject"))

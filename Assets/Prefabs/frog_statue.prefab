@@ -107,8 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreakableObject
   _hitsToBreak: 3
-  _collectablePrefab: {fileID: 0}
+  _collectablePrefab: {fileID: 3832137353642172944, guid: d1a244e70dcb947ca997466c43c431a1, type: 3}
   _collectableQuantity: 10
+  _hitEffectPrefab: {fileID: 35815690696778572, guid: a93fd3721fa5c43a8a3119a74f080a23, type: 3}
 --- !u!70 &7841529958352247647
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

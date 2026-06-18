@@ -5,6 +5,8 @@ public class Collectable : MonoBehaviour
     {
         Rigidbody2D rb;
 
+        [SerializeField] private GameObject collectEffectPrefab;
+
         private bool canBeCollected = true;
         private float collectTimer = 0f;
     
@@ -39,6 +41,18 @@ public class Collectable : MonoBehaviour
                 // Here you can add logic to give the player the collectable item
                 collision.GetComponent<Inventory>()?.AddSeeds(1);
                 // Debug.Log("Collectable picked up!");
+                if (collectEffectPrefab != null)
+                {
+                    float randomZ = Random.Range(0f, 360f);
+
+                    GameObject effect = Instantiate(
+                        collectEffectPrefab,
+                        transform.position,
+                        Quaternion.Euler(0, 0, randomZ)
+                    );
+                    float randomScale = Random.Range(0.9f, 1.1f); // ±10%
+                    effect.transform.localScale *= randomScale;
+                }
                 Destroy(gameObject); // Remove the collectable from the scene
             }
         }

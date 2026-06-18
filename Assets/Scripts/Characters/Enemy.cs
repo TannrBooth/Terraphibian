@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
+        CameraShake.Instance.Shake(0.5f, 0.5f);
         Destroy(gameObject);
         // Generate drops
     }
