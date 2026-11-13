@@ -1,29 +1,37 @@
 using UnityEngine;
-using Cinemachine;
+using Unity.Cinemachine;
+using System.Collections;
 
-public class CameraShake : MonoBehaviour
+namespace Terraphibian
 {
-    public static CameraShake Instance;
-    public CinemachineVirtualCamera virtualCamera;
-
-    private CinemachineBasicMultiChannelPerlin noise;
-
-    void Awake()
+    public class CameraShake : MonoBehaviour
     {
-        Instance = this;
-        noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-    }
+        public static CameraShake Instance;
+        public CinemachineCamera virtualCamera;
 
-    public void Shake(float intensity, float duration)
-    {
-        StartCoroutine(ShakeCoroutine(intensity, duration));
-    }
+        private CinemachineBasicMultiChannelPerlin noise;
 
-    private System.Collections.IEnumerator ShakeCoroutine(float intensity, float duration)
-    {
-        noise.m_AmplitudeGain = intensity;
-        yield return new WaitForSeconds(duration);
-        noise.m_AmplitudeGain = 0;
-    }
+        void Awake()
+        {
+            Instance = this;
+        }
 
+        void Start()
+        {
+            noise = virtualCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        }
+
+        public void Shake(float intensity, float duration)
+        {
+            StartCoroutine(ShakeCoroutine(intensity, duration));
+        }
+
+        private IEnumerator ShakeCoroutine(float intensity, float duration)
+        {
+            noise.AmplitudeGain = intensity;
+            yield return new WaitForSeconds(duration);
+            noise.AmplitudeGain = 0;
+        }
+
+    }
 }
